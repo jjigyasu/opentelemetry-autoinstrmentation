@@ -1,0 +1,1 @@
+otelcol --config=otel-config.yaml
