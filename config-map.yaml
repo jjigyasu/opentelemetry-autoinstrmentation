@@ -1,0 +1,81 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: collector-config
+data:
+  collector.yaml: |
+	receivers:
+	  otlp:
+		protocols:
+		  grpc:
+			endpoint: "opentelemetrycollector.default.svc.cluster.local:4317"
+		  http:
+			endpoint: "opentelemetrycollector.default.svc.cluster.local:4318"
+
+	processors:
+	  batch:
+
+	exporters:
+	  prometheus:
+		endpoint: "opentelemetrycollector.default.svc.cluster.local:8889"
+	  logging:
+		loglevel: debug
+	  file:
+		path: ./filename-metric.json
+	  file/trace:
+		path: ./filename-trace.json
+	  zipkin:
+		endpoint: "http://zipkin-service:9411/api/v2/spans"  
+	service:
+	  pipelines:
+		traces:
+		  receivers: [otlp]
+		  processors: [batch]
+		  exporters: [logging,file/trace]
+		metrics:
+		  receivers: [otlp]
+		  processors: [batch]
+		  exporters: [prometheus,logging,file]
+		  
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-config
+data:
+  agent.yaml: |
+	receivers:
+	  otlp:
+		protocols:
+		  grpc:
+			endpoint: "opentelemetrycollector.default.svc.cluster.local:4317"
+		  http:
+			endpoint: "opentelemetrycollector.default.svc.cluster.local:4318"
+
+	processors:
+	  batch:
+
+	exporters:
+	  prometheus:
+		endpoint: "opentelemetrycollector.default.svc.cluster.local:8889"
+	  logging:
+		loglevel: debug
+	  file:
+		path: ./filename-metric.json
+	  file/trace:
+		path: ./filename-trace.json
+	  zipkin:
+		endpoint: "http://zipkin-service:9411/api/v2/spans"  
+	service:
+	  pipelines:
+		traces:
+		  receivers: [otlp]
+		  processors: [batch]
+		  exporters: [logging,file/trace]
+		metrics:
+		  receivers: [otlp]
+		  processors: [batch]
+		  exporters: [prometheus,logging,file]
+		  
