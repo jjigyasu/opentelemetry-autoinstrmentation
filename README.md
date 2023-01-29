@@ -1,1 +1,1 @@
-# opentelemetry-autoinstrmentation
+# opentelemetry-autoinstrumentation
