@@ -22,7 +22,7 @@ data:
           file/trace:
             path: /var/log/filename-trace.json
           zipkin:
-            endpoint: "http://zipkin-service:9411/api/v2/spans"  
+            endpoint: "http://zipkin:9411/api/v2/spans"  
     service:
           pipelines:
             traces:
