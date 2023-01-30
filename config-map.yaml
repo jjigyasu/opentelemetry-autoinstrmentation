@@ -18,9 +18,9 @@ data:
           logging:
             loglevel: debug
           file:
-            path: /var/filename-metric.json
+            path: /var/log/filename-metric.json
           file/trace:
-            path: /var/filename-trace.json
+            path: /var/log/filename-trace.json
           zipkin:
             endpoint: "http://zipkin-service:9411/api/v2/spans"  
     service:
