@@ -20,6 +20,8 @@ spec:
         volumeMounts:
         - mountPath: /conf
           name: collector-config
+        - mountPath: /var/log
+          name: varlog
       volumes:
       - configMap:
           items:
@@ -27,3 +29,7 @@ spec:
             path: collector.yaml
           name: collector-config
         name: collector-config
+      - name: varlog
+        hostPath:
+          path: /var/log
+       
